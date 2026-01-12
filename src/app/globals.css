@@ -1,4 +1,11 @@
 @import "tailwindcss";
+@import "prismjs/themes/prism-okaidia.css";
+
+/* Supprimer le fond Prism */
+pre[class*="language-"],
+code[class*="language-"] {
+    background: transparent !important;
+}
 
 @layer utilities {
     .scrollbar-none {

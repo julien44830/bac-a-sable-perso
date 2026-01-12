@@ -68,6 +68,7 @@ export default function LiquidEther({
     const paletteTex = makePaletteTexture(colors);
     const bgVec4 = new THREE.Vector4(0, 0, 0, 0); // always transparent
 
+    // eslint-disable-next-line react-hooks/unsupported-syntax
     class CommonClass {
       constructor() {
         this.width = 0;
@@ -114,6 +115,7 @@ export default function LiquidEther({
     }
     const Common = new CommonClass();
 
+    // eslint-disable-next-line react-hooks/unsupported-syntax
     class MouseClass {
       constructor() {
         this.mouseMoved = false;
@@ -258,6 +260,7 @@ export default function LiquidEther({
     }
     const Mouse = new MouseClass();
 
+    // eslint-disable-next-line react-hooks/unsupported-syntax
     class AutoDriver {
       constructor(mouse, manager, opts) {
         this.mouse = mouse;
@@ -496,6 +499,7 @@ export default function LiquidEther({
 }
 `;
 
+    // eslint-disable-next-line react-hooks/unsupported-syntax
     class ShaderPass {
       constructor(props) {
         this.props = props || {};
@@ -523,6 +527,7 @@ export default function LiquidEther({
       }
     }
 
+    // eslint-disable-next-line react-hooks/unsupported-syntax
     class Advection extends ShaderPass {
       constructor(simProps) {
         super({
@@ -569,6 +574,7 @@ export default function LiquidEther({
       }
     }
 
+    // eslint-disable-next-line react-hooks/unsupported-syntax
     class ExternalForce extends ShaderPass {
       constructor(simProps) {
         super({ output: simProps.dst });
@@ -613,6 +619,7 @@ export default function LiquidEther({
       }
     }
 
+    // eslint-disable-next-line react-hooks/unsupported-syntax
     class Viscous extends ShaderPass {
       constructor(simProps) {
         super({
@@ -654,6 +661,7 @@ export default function LiquidEther({
       }
     }
 
+    // eslint-disable-next-line react-hooks/unsupported-syntax
     class Divergence extends ShaderPass {
       constructor(simProps) {
         super({
@@ -677,6 +685,7 @@ export default function LiquidEther({
       }
     }
 
+    // eslint-disable-next-line react-hooks/unsupported-syntax
     class Poisson extends ShaderPass {
       constructor(simProps) {
         super({
@@ -714,6 +723,7 @@ export default function LiquidEther({
       }
     }
 
+    // eslint-disable-next-line react-hooks/unsupported-syntax
     class Pressure extends ShaderPass {
       constructor(simProps) {
         super({
@@ -739,6 +749,7 @@ export default function LiquidEther({
       }
     }
 
+    // eslint-disable-next-line react-hooks/unsupported-syntax
     class Simulation {
       constructor(options) {
         this.options = {
@@ -883,6 +894,7 @@ export default function LiquidEther({
       }
     }
 
+    // eslint-disable-next-line react-hooks/unsupported-syntax
     class Output {
       constructor() {
         this.init();
@@ -924,6 +936,7 @@ export default function LiquidEther({
       }
     }
 
+    // eslint-disable-next-line react-hooks/unsupported-syntax
     class WebGLManager {
       constructor(props) {
         this.props = props;
@@ -999,6 +1012,7 @@ export default function LiquidEther({
             Common.renderer.dispose();
           }
         } catch (e) {
+          console.warn('%c⧭', 'color: #00e600', e);
           void 0;
         }
       }
@@ -1079,6 +1093,7 @@ export default function LiquidEther({
         try {
           resizeObserverRef.current.disconnect();
         } catch (e) {
+          console.warn('%c⧭', 'color: #00a3cc', e);
           void 0;
         }
       }
@@ -1086,6 +1101,7 @@ export default function LiquidEther({
         try {
           intersectionObserverRef.current.disconnect();
         } catch (e) {
+          console.warn('%c⧭', 'color: #aa00ff', e);
           void 0;
         }
       }

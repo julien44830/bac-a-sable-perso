@@ -1,22 +1,27 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import MenuListe from "@/components/MenuListe";
-import CodeBlock from "@/components/CodeBlock";
+import dynamic from "next/dynamic";
+const CodeBlock = dynamic(() => import("@/components/CodeBlock"), { ssr: false });
 import DemoRenderer from "@/components/DemoRenderer";
-import { codeByEffet } from "./data/snippets";
 import list from "./data/animations";
+import { effectByName } from "./data/snippets";
+import WhyModale from "@/components/WhyModale";
 
 export default function Home() {
     const [selectEffet, setSelectEffet] = useState<string>(list[0]);
 
     const sliderRef = useRef<HTMLDivElement | null>(null);
     const [isPourquoiOpen, setIsPourquoiOpen] = useState(false);
+    const [activeTab, setActiveTab] = useState<0 | 1>(0);
 
-    const scrollToSlide = (index: number) => {
+    const scrollToSlide = (index: 0 | 1) => {
         const slider = sliderRef.current;
         if (!slider) return;
 
-        const slideWidth = slider.clientWidth; // Largeur visible du slider
+        setActiveTab(index);
+
+        const slideWidth = slider.clientWidth;
         slider.scrollTo({
             left: index * slideWidth,
             behavior: "smooth",
@@ -40,7 +45,7 @@ export default function Home() {
                     <h1>Composants React</h1>
 
                     <ul className="flex gap-4">
-                        <li>
+                        {/* <li>
                             <a
                                 href="#demo"
                                 onClick={(e) => {
@@ -62,15 +67,11 @@ export default function Home() {
                             >
                                 Source
                             </a>
-                        </li>
+                        </li> */}
 
                         <li>
-                            <button
-                                type="button"
-                                className="underline"
-                                onClick={() => setIsPourquoiOpen(true)}
-                            >
-                                Pourquoi
+                            <button type="button" onClick={() => setIsPourquoiOpen(true)}>
+                                Pourquoi ce site
                             </button>
                         </li>
                     </ul>
@@ -80,16 +81,48 @@ export default function Home() {
             <main className="flex flex-1 flex-row gap-6 overflow-hidden p-6">
                 <section className="scrollbar-none w-64 shrink-0 overflow-auto mask-[linear-gradient(to_bottom,transparent_0%,black_10%,black_50%,transparent_100%)] p-4 py-20 [-webkit-mask-image:linear-gradient(to_bottom,transparent_0%,black_30%,black_70%,transparent_100%)]">
                     <p className="mb-5">choisi ton animation</p>
-                    <MenuListe Liste list={list} setSelectEffet={setSelectEffet} />
+                    <MenuListe
+                        list={list}
+                        selectEffet={selectEffet}
+                        setSelectEffet={setSelectEffet}
+                    />
                 </section>
 
                 <div className="relative flex-1 overflow-hidden">
                     {/* Slider Demo/Source */}
+                    <div className="relative ml-10 flex w-fit rounded-xl p-1">
+                        {/* Indicateur bleu */}
+                        <div
+                            className={`visible absolute top-1 left-1 h-[calc(100%-0.5rem)] w-24 rounded-xl bg-indigo-950 transition-all duration-300 ease-in-out ${activeTab === 1 ? "translate-x-full" : "translate-x-0"} `}
+                        />
+
+                        {/* Bouton Source */}
+                        <button
+                            className="relative w-24 px-4 py-2 text-white"
+                            onClick={(e) => {
+                                e.preventDefault();
+                                scrollToSlide(0);
+                            }}
+                        >
+                            Source
+                        </button>
+
+                        {/* Bouton Demo */}
+                        <button
+                            className="relative w-24 px-4 py-2 text-white"
+                            onClick={(e) => {
+                                e.preventDefault();
+                                scrollToSlide(1);
+                            }}
+                        >
+                            Demo
+                        </button>
+                    </div>
                     <div
                         ref={sliderRef}
                         className="scrollbar-none /* Masque gauche + droite (fondu court) */ flex h-full snap-x snap-mandatory flex-row gap-10 overflow-x-auto scroll-smooth mask-[linear-gradient(to_right,transparent_0%,black_20%,black_50%,transparent_100%)] [-webkit-mask-image:linear-gradient(to_right,transparent_0%,black_3%,black_92%,transparent_100%)]"
                     >
-                        <section id="demo" className="h-full w-full shrink-0 snap-start p-10">
+                        <section id="demo" className="h-[80vh] w-full shrink-0 snap-start p-10">
                             <div className="h-full w-full rounded-2xl border border-white/10 bg-slate-950 shadow-lg shadow-slate-800">
                                 <DemoRenderer selectEffet={selectEffet} />
                             </div>
@@ -97,13 +130,12 @@ export default function Home() {
 
                         <section
                             id="source"
-                            className="h-full w-full shrink-0 snap-start p-10 pr-40"
+                            className="h-[80vh] w-full shrink-0 snap-start p-10 pr-40"
                         >
                             <CodeBlock
-                                code={
-                                    codeByEffet[selectEffet] ??
-                                    "// Sélectionne une animation dans la liste..."
-                                }
+                                npm={effectByName[selectEffet]?.npm}
+                                use={effectByName[selectEffet]?.use}
+                                css={effectByName[selectEffet]?.css}
                             />
                         </section>
                     </div>
@@ -152,10 +184,7 @@ export default function Home() {
                         </div>
 
                         <div className="mt-4 space-y-3 text-white/90">
-                            <p>Ici tu mets le contenu “pourquoi ce site”.</p>
-                            <p>
-                                Tu peux expliquer le but, les technos, ou afficher une petite doc.
-                            </p>
+                            <WhyModale />
                         </div>
 
                         <div className="mt-6 flex justify-end">

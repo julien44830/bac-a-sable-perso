@@ -24,14 +24,10 @@ export const metadata: Metadata = {
     },
 };
 
-export default function RootLayout({
-    children,
-}: {
-    children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
     return (
         <html lang="fr">
-            <body className="relative min-h-screen overflow-hidden ">
+            <body className="relative min-h-screen overflow-hidden">
                 {/* Layer fond */}
                 <div className="absolute inset-0 -z-10 bg-slate-950">
                     <Galaxy

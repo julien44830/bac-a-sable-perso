@@ -1,22 +1,49 @@
-export const codeByEffet: Record<string, string> = {
+export type EffectCategory =
+  | "shader"
+  | "background"
+  | "mouse"
+  | "scroll"
+  | "transition"
+  | "ui"
+  | "other";
 
-  "Prism": `import Prism from './Prism';
+export type EffectDoc = {
+  npm: string; // commande d'installation (string vide si rien)
+  use: string; // code d'intégration
+  source: string; // clé/label de la source (ex: "react-bits", "interne")
+  category: EffectCategory; // catégorisation
+  css?: string; // code CSS additionnel (optionnel)
+};
 
-<div style={{ width: '100%', height: '600px', position: 'relative' }}>
-  <Prism
-    animationType="rotate"
-    timeScale={0.5}
-    height={3.5}
-    baseWidth={5.5}
-    scale={3.6}
-    hueShift={0}
-    colorFrequency={1}
-    noise={0.5}
-    glow={1}
-  />
-</div>`,
+export const effectByName: Record<string, EffectDoc> = {
+  Prism: {
+    npm: `npx shadcn@latest add @react-bits/Prism-JS-CSS`,
+    use: `import Prism from './Prism';
 
-  "liquid Ether": `import LiquidEther from "../components/liquidEther/LiquidEther";
+export default function Demo() {
+  return (
+    <div style={{ width: '100%', height: '600px', position: 'relative' }}>
+      <Prism
+        animationType="rotate"
+        timeScale={0.5}
+        height={3.5}
+        baseWidth={5.5}
+        scale={3.6}
+        hueShift={0}
+        colorFrequency={1}
+        noise={0.5}
+        glow={1}
+      />
+    </div>
+  );
+}`,
+    source: "react-bits",
+    category: "shader",
+  },
+
+  "liquid Ether": {
+    npm: `npx shadcn@latest add @react-bits/Liquid-Ether`,
+    use: `import LiquidEther from "../components/liquidEther/LiquidEther";
 
 export default function Demo() {
   return (
@@ -25,9 +52,20 @@ export default function Demo() {
     </div>
   );
 }`,
+    source: "react-bits",
+    category: "shader",
+    css: `.liquid-ether-container {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    touch-action: none;
+  }`
+  },
 
-
-  "background animé": `import Galaxy from "./Galaxy";
+  "background animé": {
+    npm: `npm i ogl`,
+    use: `import Galaxy from "./Galaxy";
 
 export default function Demo() {
   return (
@@ -36,21 +74,30 @@ export default function Demo() {
     </div>
   );
 }`,
+    source: "interne",
+    category: "background",
+  },
 
-  "animation de souris": `import Galaxy from "./Galaxy";
+  "Magnet": {
+    npm: `npx shadcn@latest add @react-bits/Magnet-JS-CSS`,
+    use: `import Magnet from './Magnet'
 
-export default function Demo() {
-  return (
-    <div style={{ width: "100%", height: "600px", position: "relative" }}>
-      <Galaxy mouseInteraction={true} mouseRepulsion={true} />
-    </div>
-  );
-}`,
+<Magnet padding={50} disabled={false} magnetStrength={50}>
+  <p>Star React Bits on GitHub!</p>
+</Magnet>`,
+    source: "https://reactbits.dev/animations/magnet",
+    category: "mouse",
+  },
 
-  "animation au scroll": `// Exemple: animation déclenchée au scroll (à adapter)
+  "animation au scroll": {
+    npm: ``,
+    use: `// Exemple : animation déclenchée au scroll (à adapter)
 useEffect(() => {
   const onScroll = () => console.log("scroll");
   window.addEventListener("scroll", onScroll);
   return () => window.removeEventListener("scroll", onScroll);
 }, []);`,
+    source: "interne",
+    category: "scroll",
+  },
 };

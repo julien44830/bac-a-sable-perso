@@ -1,7 +1,7 @@
 const list = [
-  "liquid Ether",
+  "Liquid Ether",
   "Prism",
-  "background animé",
+  "Magnet",
   "animation de souris",
   "animation au scroll",
   "fondu progressif",
