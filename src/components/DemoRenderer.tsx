@@ -13,6 +13,10 @@ const LiquidEtherComponent = dynamic(
     { ssr: false }
 );
 
+const MagnetComponent = dynamic(() => import("@/components/magnet/MagnetComponent"), {
+    ssr: false,
+});
+
 type Props = {
     selectEffet: List;
 };
@@ -25,6 +29,9 @@ export default function DemoRenderer({ selectEffet }: Props) {
 
         case "Liquid Ether":
             return <LiquidEtherComponent />;
+
+        case "Magnet":
+            return <MagnetComponent />;
 
         default:
             return (

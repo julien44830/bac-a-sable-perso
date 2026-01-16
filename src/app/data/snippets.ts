@@ -41,7 +41,7 @@ export default function Demo() {
     category: "shader",
   },
 
-  "liquid Ether": {
+  "Liquid Ether": {
     npm: `npx shadcn@latest add @react-bits/Liquid-Ether`,
     use: `import LiquidEther from "../components/liquidEther/LiquidEther";
 
@@ -63,6 +63,18 @@ export default function Demo() {
   }`
   },
 
+
+  Magnet: {
+    npm: `npx shadcn@latest add @react-bits/Magnet-JS-CSS`,
+    use: `import Magnet from './Magnet'
+  
+  <Magnet padding={50} disabled={false} magnetStrength={50}>
+    <p>Star React Bits on GitHub!</p>
+  </Magnet>`,
+    source: "https://reactbits.dev/animations/magnet",
+    category: "mouse",
+  },
+
   "background animé": {
     npm: `npm i ogl`,
     use: `import Galaxy from "./Galaxy";
@@ -76,17 +88,6 @@ export default function Demo() {
 }`,
     source: "interne",
     category: "background",
-  },
-
-  "Magnet": {
-    npm: `npx shadcn@latest add @react-bits/Magnet-JS-CSS`,
-    use: `import Magnet from './Magnet'
-
-<Magnet padding={50} disabled={false} magnetStrength={50}>
-  <p>Star React Bits on GitHub!</p>
-</Magnet>`,
-    source: "https://reactbits.dev/animations/magnet",
-    category: "mouse",
   },
 
   "animation au scroll": {

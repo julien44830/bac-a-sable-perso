@@ -25,12 +25,13 @@ type Props = {
     use: string;
     css?: string;
 
-    // Commentaire en français : langage utilisé pour le code "use"
+    // langage utilisé pour le code "use"
     useLanguage?: UseLanguage;
 };
 
 export default function CodeBlock({ npm, use, css, useLanguage = "tsx" }: Props) {
-    // Commentaire en français : choisir un onglet par défaut intelligent
+    console.log("%c⧭", "color: #e50000", use);
+    // choisir un onglet par défaut intelligent
     const defaultMode: Mode = use ? "use" : npm ? "npm" : "css";
 
     const [mode, setMode] = useState<Mode>(defaultMode);
@@ -40,14 +41,14 @@ export default function CodeBlock({ npm, use, css, useLanguage = "tsx" }: Props)
     const inactiveBtn =
         "rounded-lg border border-white/10 px-3 py-1 text-xs transition hover:bg-white/10";
 
-    // Commentaire en français : contenu affiché selon l’onglet
+    // contenu affiché selon l’onglet
     const content = useMemo(() => {
         if (mode === "npm") return npm ?? "";
         if (mode === "css") return css ?? "";
         return use ?? "";
     }, [mode, npm, css, use]);
 
-    // Commentaire en français : langage Prism selon l’onglet
+    // langage Prism selon l’onglet
     const language = useMemo(() => {
         if (mode === "npm") return "bash";
         if (mode === "css") return "css";
@@ -57,10 +58,10 @@ export default function CodeBlock({ npm, use, css, useLanguage = "tsx" }: Props)
         return "tsx";
     }, [mode, useLanguage]);
 
-    // Commentaire en français : numéros de lignes (basés sur le contenu brut)
+    // numéros de lignes (basés sur le contenu brut)
     const lines = useMemo(() => (content ? content.split("\n") : [""]), [content]);
 
-    // Commentaire en français : code transformé en HTML Prism
+    // code transformé en HTML Prism
     const highlightedHtml = useMemo(() => {
         if (!content) return "";
 
@@ -70,7 +71,7 @@ export default function CodeBlock({ npm, use, css, useLanguage = "tsx" }: Props)
         return Prism.highlight(content, grammar, language);
     }, [content, language]);
 
-    // Commentaire en français : éviter de rester sur un onglet qui n'existe pas
+    // éviter de rester sur un onglet qui n'existe pas
     // (par exemple si tu changes d'animation et qu'il n'y a plus de CSS)
     const canUse = Boolean(use);
     const canNpm = Boolean(npm);
@@ -143,7 +144,7 @@ export default function CodeBlock({ npm, use, css, useLanguage = "tsx" }: Props)
                 <pre className="min-w-0 p-5">
                     <code
                         className={`language-${language} whitespace-pre`}
-                        // Commentaire en français : Prism renvoie du HTML avec des spans, on l’injecte
+                        // Prism renvoie du HTML avec des spans, on l’injecte
                         dangerouslySetInnerHTML={{
                             __html: highlightedHtml || "// Aucun code disponible",
                         }}

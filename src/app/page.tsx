@@ -10,6 +10,7 @@ import WhyModale from "@/components/WhyModale";
 
 export default function Home() {
     const [selectEffet, setSelectEffet] = useState<string>(list[0]);
+    console.log("%c⧭", "color: #00bf00", selectEffet);
 
     const sliderRef = useRef<HTMLDivElement | null>(null);
     const [isPourquoiOpen, setIsPourquoiOpen] = useState(false);
@@ -88,7 +89,7 @@ export default function Home() {
                     />
                 </section>
 
-                <div className="relative flex-1 overflow-hidden">
+                <div className="relative flex-1">
                     {/* Slider Demo/Source */}
                     <div className="relative ml-10 flex w-fit rounded-xl p-1">
                         {/* Indicateur bleu */}
@@ -104,7 +105,7 @@ export default function Home() {
                                 scrollToSlide(0);
                             }}
                         >
-                            Source
+                            Demo
                         </button>
 
                         {/* Bouton Demo */}
@@ -115,7 +116,7 @@ export default function Home() {
                                 scrollToSlide(1);
                             }}
                         >
-                            Demo
+                            {"Code"}
                         </button>
                     </div>
                     <div
